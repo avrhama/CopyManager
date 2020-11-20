@@ -46,6 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CopyItem.cs" />
+    <Compile Include="CopyItems.cs" />
+    <Compile Include="CopyItemsCtl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CopyItemsCtl.Designer.cs">
+      <DependentUpon>CopyItemsCtl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,6 +62,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CopyItemsCtl.resx">
+      <DependentUpon>CopyItemsCtl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -65,6 +76,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -78,6 +90,102 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\addBtnOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\addBtnOn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\addOff2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\addOn2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\addWindow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\addWindowOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\addWindowOn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\applyOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\applyOn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\browserOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\browserOn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\closeOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\closeOn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LoadOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LoadOn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Profiles.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Remove-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\removeOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\removeOff2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\removeOn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\removeOn2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\saveOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\saveOn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settingsOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settingsOn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\windowCase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\windowCaseOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\windowCaseOffBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\windowCaseOnBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\windowCaseSelectedGrey.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
