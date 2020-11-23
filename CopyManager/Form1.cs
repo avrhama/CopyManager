@@ -36,7 +36,46 @@ namespace CopyManager
             listView1.SmallImageList = imageList1;
             listView1.View = View.SmallIcon;
 
+            copiedTextsListBox.SelectedIndexChanged += CopiedTextsListBox_SelectedIndexChanged;
+            ContextMenu mc = new ContextMenu();
+ 
+           MenuItem mi = new MenuItem("remove",(object o, EventArgs e) => { copiedTextsListBox.Items.RemoveAt(copiedTextsListBox.SelectedIndex); });
+            mc.MenuItems.Add(mi);
+            copiedTextsListBox.ContextMenu = mc;
+
+            mc = new ContextMenu();
+
+            mi = new MenuItem("remove", (object o, EventArgs e) => {
+                ListViewItem[] items = listView1.SelectedItems.Cast<ListViewItem>().ToArray();
+                if (items.Length == selectedCopyItemsCtl.copyItems.count())
+                {
+                    copyItmesCtlRemoved(selectedCopyItemsCtl, selectedCopyItemsCtl.copyItems);
+                    listView1.Items.Clear();
+                    return;
+                }
+
+                string[] files = new string[items.Length];
+                for (int i = 0; i < items.Length; i++)
+                    selectedCopyItemsCtl.copyItems.remove(items[i].Name);
+                   
+
+                foreach(ListViewItem lvi in items)
+                {
+                    listView1.Items.Remove(lvi);
+                }
+
+
+            });
+            mc.MenuItems.Add(mi);
+            listView1.ContextMenu = mc;
         }
+
+        private void CopiedTextsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(copiedTextsListBox.SelectedIndex>=0)
+            copiedtextRichText.Text = ((CopyText)copiedTextsListBox.SelectedItem).Text;
+        }
+
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr SetClipboardViewer(IntPtr hWndNewViewer);
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
@@ -182,13 +221,30 @@ namespace CopyManager
                     //creating copyItems control and add it to the copyItems panel control.
                     CopyItemsCtl cic = new CopyItemsCtl(cis);
                     //register to copyItemsCtl click event.
-                    cic.Clicked += copyItmesCtlClicked;
+                    cic.ClickEventHandler += copyItmesCtlClicked;
+                    //register to copyItemsCtl remove event.
+                    cic.RemoveEventHandler += copyItmesCtlRemoved;
                     copyItemsflwLytPnl.Controls.Add(cic);
 
                 }
+                tabControl1.SelectedIndex = 0;
+            }
+            else if (Clipboard.ContainsText())
+            {
+                CopyText ct = new CopyText(Clipboard.GetText());
+                if (!copiedTextsListBox.Items.Contains(ct))
+                {
+                    copiedTextsListBox.Items.Add(ct);
+                }
+                tabControl1.SelectedIndex = 1;
             }
 
-
+        }
+        public void copyItmesCtlRemoved(object sender,CopyItems ci)
+        {
+            CopyItemsCtl cic = (CopyItemsCtl)sender;
+            copyItemsflwLytPnl.Controls.Remove(cic);
+            copyItemsList.Remove(ci);
         }
         public void displayCopiedFiles (CopyItems cis)
         {
@@ -265,14 +321,14 @@ namespace CopyManager
                 SHGFI_ICON | SHGFI_LARGEICON);
             return System.Drawing.Icon.FromHandle(shinfo.hIcon);
         }
-
+        CopyItemsCtl selectedCopyItemsCtl;
         public void copyItmesCtlClicked(object sender,CopyItems ci)
         {
           
             //seems silly[not efficient] that the function's resposability is to call to another function.
             //but i dont know yet if in the future i would like to excute displayCopiedFiles's procedure from another place.
             displayCopiedFiles(ci);
-
+            selectedCopyItemsCtl = (CopyItemsCtl)sender;
         }
     }
 }

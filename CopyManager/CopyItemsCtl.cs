@@ -16,16 +16,17 @@ namespace CopyManager
         {
             InitializeComponent();
         }
-        CopyItems ci;
+        public CopyItems copyItems;
         public CopyItemsCtl(CopyItems ci)
         {
             InitializeComponent();
-            this.ci = ci;
+            this.copyItems = ci;
             config();
 
 
         }
-        public EventHandler<CopyItems> Clicked;
+        public EventHandler<CopyItems> ClickEventHandler;
+        public EventHandler<CopyItems> RemoveEventHandler;
         public void config()
         {
             //0 space between this control and its neighbours.
@@ -33,7 +34,7 @@ namespace CopyManager
             BackgroundImageLayout = ImageLayout.Stretch;
             BackgroundImage = Properties.Resources.windowCaseOffBlue;
             titleLbl.BackColor = System.Drawing.Color.Transparent;
-            titleLbl.Text = $"{ci.count()} {ci.CopiedDate.ToString()}";
+            titleLbl.Text = $"{copyItems.count()} {copyItems.CopiedDate.ToString()}";
             titleLbl.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             MouseDown += CopyItemsCtl_MouseDown;
             titleLbl.MouseDown += CopyItemsCtl_MouseDown;
@@ -44,11 +45,11 @@ namespace CopyManager
              });
             titleLbl.Click += new EventHandler((object sender, EventArgs e) =>
             {
-                Clicked?.Invoke(sender, ci);
+                ClickEventHandler?.Invoke(this, copyItems);
             });
             Click += new EventHandler((object sender, EventArgs e) =>
             {
-                Clicked?.Invoke(sender, ci);
+                ClickEventHandler?.Invoke(sender, copyItems);
             });
             /* addWindowPic.Click += addWinPicClicked;
              addWindowPic.MouseEnter += new EventHandler((object sender, EventArgs e) =>
@@ -67,6 +68,7 @@ namespace CopyManager
             MouseEnter += new EventHandler((object sender, EventArgs e) =>
             {
                 BackgroundImage = Properties.Resources.windowCaseOnBlue;
+                
             });
 
             MouseLeave += new EventHandler((object sender, EventArgs e) =>
@@ -87,6 +89,24 @@ namespace CopyManager
             MouseMove += CopyItemsCtl_MouseMove;
             MouseUp += CopyItemsCtl_MouseUp;
 
+
+            removePic.MouseEnter += new EventHandler((object sender, EventArgs e) =>
+            {
+                removePic.BackgroundImage= Properties.Resources.closeOn;
+                Cursor = Cursors.Hand;
+            });
+
+            removePic.MouseLeave += new EventHandler((object sender, EventArgs e) =>
+            {
+                removePic.BackgroundImage = Properties.Resources.closeOff;
+                Cursor = Cursors.Default;
+
+            });
+            removePic.Click += new EventHandler((object sender, EventArgs e) =>
+            {
+                RemoveEventHandler?.Invoke(this, copyItems);
+
+            });
         }
         bool mouseDown = false;
         private void CopyItemsCtl_MouseDown(object sender, MouseEventArgs e)
@@ -100,9 +120,9 @@ namespace CopyManager
         {
             if (mouseDown)
             {
-                string[] files = ci.getItemsArray();
+                string[] files = copyItems.getItemsArray();
                 this.DoDragDrop(new DataObject(DataFormats.FileDrop, files), DragDropEffects.Copy);
-                Clicked?.Invoke(sender, ci);
+                ClickEventHandler?.Invoke(this, copyItems);
                 mouseDown = false;
             }
         }

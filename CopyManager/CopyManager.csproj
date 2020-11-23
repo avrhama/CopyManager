@@ -54,6 +54,7 @@
     <Compile Include="CopyItemsCtl.Designer.cs">
       <DependentUpon>CopyItemsCtl.cs</DependentUpon>
     </Compile>
+    <Compile Include="CopyText.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -30,6 +30,16 @@ namespace CopyManager
         {
             items.Remove(ci);
         }
+        public void remove(string path)
+        {
+            CopyItem ci = null;
+            foreach(CopyItem c in items)
+            {
+                if (path == c.Path)
+                    ci = c;
+            }
+            items.Remove(ci);
+        }
         public int count()
         {
             return items.Count;

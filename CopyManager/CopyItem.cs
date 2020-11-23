@@ -28,5 +28,6 @@ namespace CopyManager
                 return false;
             return this.Path == ((CopyItem)obj).Path;
         }
+
     }
 }
